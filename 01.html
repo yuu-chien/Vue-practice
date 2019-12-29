@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1229</title>
+
+</head>
+<body>
+    <div id="app">
+        {{score*0.8}}
+        <br>
+        {{message}}
+
+        <hr>
+        <div v-if="try_if">這段測試 v-if，如果是true則會出現</div>
+        <div v-show="try_show">這段測試 v-show，如果是false則會在行內下display:none</div>
+        <!-- v-if會把整個dom拿掉，v-show則只是隱藏 -->
+
+        <hr>
+        <p>猜數字</p>
+        <input type="text" v-model="your_number" placeholder="請輸入1-100之間的整數">
+        <p>你輸入的數字是{{your_number}}</p>
+        <div v-if="your_number>my_number">哎呀！好像超過了喔</div>
+        <div v-else="your_number<my_number">再往上加一點吧</div>
+        <div v-else-if="your_number=my_number">猜對了！我的數字是{{my_number}}</div>
+    </div>
+
+ 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello World',
+            score: 100,
+            try_if: false,
+            try_show: true,
+            my_number: '',
+            your_number:'',
+        },
+    })
+
+    // 任何資料都要放在 data 裡
+
+</script>
+</body>
+</html>
