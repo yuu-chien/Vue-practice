@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>1229</title>
+    <title>01-幼幼班入門篇-上</title>
 
 </head>
 <body>
@@ -19,12 +19,36 @@
         <!-- v-if會把整個dom拿掉，v-show則只是隱藏 -->
 
         <hr>
+
+        <!-- TODO 資料型態判別 -->
         <p>猜數字</p>
         <input type="text" v-model="your_number" placeholder="請輸入1-100之間的整數">
         <p>你輸入的數字是{{your_number}}</p>
         <div v-if="your_number>my_number">哎呀！好像超過了喔</div>
         <div v-else="your_number<my_number">再往上加一點吧</div>
+        <div v-else="typeof(your_number) !== 'number'">這好像不是數字喔</div>
         <div v-else-if="your_number=my_number">猜對了！我的數字是{{my_number}}</div>
+
+        <hr>
+        <p>這裡開始是 v-for 用陣列</p>
+        <ul>
+            <li v-for="a in colors">
+                {{a}}
+            </li>
+        </ul>
+
+        <p>這裡開始是 v-for 陣列裡面塞物件</p>
+        <ul>
+            <li v-for="b in family" v-on:click="myFamily(b.father)">
+                {{b.father}}
+                {{b.mother}}
+            </li>
+        </ul>
+        <p>
+        </p>
+
+        <hr>
+        <p>this 就是 function 當下執行時的外層物件</p>
     </div>
 
  
@@ -40,7 +64,15 @@
             try_show: true,
             my_number: '',
             your_number:'',
+            colors:['RED','GREEN','BLUE'],
+            family:[{father:'Dobby'},{father:'Tommy'}],
         },
+        // 所有的function都要寫在methods裡
+        methods:{
+            myFamily: (father)=>{
+                alert('我的爸爸是'+father)
+            }
+        }
     })
 
     // 任何資料都要放在 data 裡
