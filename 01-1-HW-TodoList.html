@@ -5,9 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>01-幼幼班入門篇-上-HW-TodoList</title>
+    <link rel="stylesheet" href="/CSS/01-1-HW-TodoList.css">
 </head>
 <body>
 
+    <div id="todoList-wrap">
+        <div class="list-title">
+            <p>TO DO LIST</p>
+        </div>
+        <div class="list-text">
+            <input type="text" v-model="newItem" name="" id="">
+            <button v-on:click="addNewItem(newItem)">ADD</button>
+            <ul>
+                <li v-for="item in todoItems">
+                    {{item}}
+                </li>
+            </ul>
+        </div>
+        <div class="list-items">
+
+        </div>
+    </div>
+
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<script>
+
+    var app = new Vue({
+        el:'#todoList-wrap',
+        data:{
+            todoItems:[],
+            newItem:'',
+        },
+        methods:{
+            addNewItem:()=>{
+                console.log(newItem)
+                // todoItems.push(newItem)
+            }
+        }
+    })
+
+    
+
+</script>
 </body>
 </html>
