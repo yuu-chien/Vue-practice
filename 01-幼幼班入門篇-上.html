@@ -22,12 +22,9 @@
 
         <!-- TODO 資料型態判別 -->
         <p>猜數字</p>
-        <input type="text" v-model="your_number" placeholder="請輸入1-100之間的整數">
+        <input type="number" v-model.number="your_number" placeholder="請輸入1-100之間的整數">
         <p>你輸入的數字是{{your_number}}</p>
-        <div v-if="your_number>my_number">哎呀！好像超過了喔</div>
-        <div v-else="your_number<my_number">再往上加一點吧</div>
-        <div v-else="typeof(your_number) !== 'number'">這好像不是數字喔</div>
-        <div v-else-if="your_number=my_number">猜對了！我的數字是{{my_number}}</div>
+        <p>{{guessNum}}</p>
 
         <hr>
         <p>這裡開始是 v-for 用陣列</p>
@@ -62,7 +59,7 @@
             score: 100,
             try_if: false,
             try_show: true,
-            my_number: '',
+            my_number: 50,
             your_number:'',
             colors:['RED','GREEN','BLUE'],
             family:[{father:'Dobby'},{father:'Tommy'}],
@@ -72,10 +69,26 @@
             myFamily: (father)=>{
                 alert('我的爸爸是'+father)
             }
+        },
+        //
+        computed:{
+            guessNum : function(){
+                if(this.your_number>this.my_number){
+                    return '哎呀！好像超過了喔';
+                }
+                else if(this.your_number < this.my_number){
+                    return '再往上加一點吧';
+                }
+                else if(this.your_number = this.my_number){
+                    return '猜對了！我的數字是'+this.my_number;
+                }
+
+            }
         }
     })
 
     // 任何資料都要放在 data 裡
+
 
 </script>
 </body>
