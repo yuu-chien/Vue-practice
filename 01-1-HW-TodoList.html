@@ -22,9 +22,7 @@
                 </li>
             </ul>
         </div>
-        <div class="list-items">
-
-        </div>
+        <div class="list-items"></div>
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
@@ -37,10 +35,9 @@
             newItem:'',
         },
         methods:{
-            addNewItem:()=>{
-                console.log(newItem)
-                // todoItems.push(newItem)
-            }
+            addNewItem(){
+                this.todoItems.push(this.newItem)
+            },
         }
     })
 

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/02-Exchange rate calculation.css">
+    <title>Vue．匯率計算機｜Exchange rate calculation</title>
+</head>
+<body>
+
+    <div class="calculation-wrap">
+
+        <p>請輸入臺幣金額 NT$ <input type="number" v-model.number="NTD"> 元（取整數）</p>
+        
+        <div class="country-rate-wrap">
+            <img src="https://image.flaticon.com/icons/svg/323/323308.svg" alt="">
+            <h3>日幣</h3>
+            <span>¥ {{JPY}}</span>
+        </div>
+
+        <div class="country-rate-wrap">
+            <img src="https://image.flaticon.com/icons/svg/323/323344.svg" alt="">
+            <h3>歐元</h3>
+            <span>£ {{EUR}}</span>
+        </div>
+
+        <div class="country-rate-wrap">
+            <img src="https://image.flaticon.com/icons/svg/323/323310.svg" alt="">
+            <h3>美金</h3>
+            <span>$ {{USD}}</span>
+        </div>
+
+        <div class="country-rate-wrap">
+            <img src="https://image.flaticon.com/icons/svg/323/323277.svg" alt="">
+            <h3>加幣</h3>
+            <span>$ {{CAD}}</span>
+        </div>
+
+        <div class="country-rate-wrap">
+            <img src="https://image.flaticon.com/icons/svg/323/323367.svg" alt="">
+            <h3>澳幣</h3>
+            <span>$ {{AUD}}</span>
+        </div>
+
+    </div>
+    <p class="footer">即期匯率 - 本行賣出 - 臺灣銀行 - 2020/03/25 16:00</p>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<script>
+
+    var app = new Vue({
+        el:'.calculation-wrap',
+        data: {
+            NTD: 0,
+        },
+        computed: {
+            JPY: function(){
+                return Math.floor(this.NTD / 0.2739);
+            },
+            EUR: function(){
+                return Math.floor(this.NTD / 32.95);
+            },
+            USD: function(){
+                return Math.floor(this.NTD / 30.345);
+            },
+            AUD: function(){
+                return Math.floor(this.NTD / 18.14);
+            },
+            CAD: function(){
+                return Math.floor(this.NTD / 21.2);
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

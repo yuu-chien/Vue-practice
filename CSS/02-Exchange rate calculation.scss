@@ -1,0 +1,45 @@
+*{
+    font-family: 'Microsoft JhengHei';
+    letter-spacing: 1px;
+}
+
+.calculation-wrap {
+    width: 50%;
+    margin: auto;
+    font-size: 1rem;
+    p {
+        margin: 2rem 0;
+    }
+    input {
+        width: 100px;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        color: #ccc;
+        text-align: center;
+    }
+    .country-rate-wrap{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        padding: 0.5rem;
+        border-bottom: 1px solid #ddd;
+        img {
+            flex: 1;
+            width: 50px;
+            height: 50px;
+        }
+        h3 {
+            flex: 1;
+        }
+        span {
+            flex: 1;
+        }
+    }
+}
+
+.footer {
+    display: block;
+    text-align: center;
+    margin-top: 2rem;
+}
