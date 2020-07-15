@@ -12,6 +12,7 @@
         <block></block>
         <div is="block"></div>
         <list></list>
+        <list2></list2>
     </div>
 
 </body>
@@ -25,9 +26,16 @@
     </ul>
 </script>
 
+<script type="text/x-template" id="forList2">
+    <ul>
+        <li>{{ list1 }}</li>
+        <li>{{ list2 }}</li>
+        <li>{{ list3 }}</li>
+    </ul>
+</script>
+
 
 <script type="module">
-
     // 全域定義元件
     // block 為自訂名稱
     Vue.component('block', {
@@ -44,11 +52,20 @@
                 list3: '喔',
             }
         }
-    })
+    });
+
+    // 可以使用 import 載入外部 JS，如果是區域元件，載入後需在 components 裡定義
+    import forList2 from './JS/forList2.js';
+    Vue.component('list2', forList2)
 
     var app = new Vue({
+        // 區域定義元件
         el: '#app',
+        // components: {
+        //     list2
+        // }
     })
 
 </script>
+
 </html>
