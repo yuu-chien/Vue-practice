@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>第四週練習</title>
+</head>
+<body>
+
+    <div id="app">
+        <block></block>
+        <div is="block"></div>
+        <list></list>
+    </div>
+
+</body>
+
+<!-- x-template 可放入 HTML 標籤，並用 id 綁定元件名稱 -->
+<script type="text/x-template" id="forList">
+    <ul>
+        <li>{{ list1 }}</li>
+        <li>{{ list2 }}</li>
+        <li>{{ list3 }}</li>
+    </ul>
+</script>
+
+
+<script type="module">
+
+    // 全域定義元件
+    // block 為自訂名稱
+    Vue.component('block', {
+        template: `<h1>HELLO Vue</h1>`,
+    })
+
+    Vue.component('list', {
+        template: "#forList",
+        // 元件內的 data 必須用 function return
+        data: function() {
+            return {
+                list1: '早',
+                list2: '安',
+                list3: '喔',
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: '#app',
+    })
+
+</script>
+</html>
