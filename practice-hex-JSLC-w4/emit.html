@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>第四週練習 emit</title>
+</head>
+<body>
+
+    <div id="app">
+        <block info-txt="a" @pushemit="getData"></block>
+    </div>
+
+</body>
+
+<script type="text/x-template" id="info">
+    <div>
+        <p>{{text}}</p>
+        <input type="text" v-model="text">  <!-- 對應第 32 行 -->
+        <button @click="updateData">送出</button>
+    </div>
+</script>
+
+<script>
+
+    Vue.component('block', {
+        props: ['info-txt'],
+        template: '#info',
+        data: function(){
+            return {
+                text: 'hi'
+            }
+        },
+        methods: {
+            updateData(){
+                console.log('嗨，這裡是內層');
+                // $emit 出去，methods 發大財（誤）
+                // $emit 定義事件'pushemit' 並推送，接著到外層（第12行）指定以 app methods 中的 getData 接收
+                this.$emit('pushemit')
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: '#app',
+        methods: {
+            getData(){
+                console.log('嗨，這裡是～外層');
+            }
+        }
+    })
+
+
+
+</script>
+
+</html>
