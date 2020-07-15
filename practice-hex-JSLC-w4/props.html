@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>第四週練習 props</title>
+</head>
+<body>
+
+    <div id="app">
+        <list outer="123"></list>
+        <list :outer="text"></list>
+    </div>
+
+</body>
+
+<!-- x-template 可放入 HTML 標籤，並用 id 綁定元件名稱 -->
+<script type="text/x-template" id="forList">
+    <ul>
+        <li>{{ list1 }}</li>
+        <li>{{ list2 }}</li>
+        <li>{{ outer }}</li>
+    </ul>
+</script>
+
+
+
+<script type="module">
+
+    Vue.component('list', {
+        props: ['outer'],
+        template: "#forList",
+        data: function() {
+            return {
+                list1: '早',
+                list2: '安',
+                list3: '喔',
+            }
+        }
+    });
+
+
+
+    var app = new Vue({
+        // 區域定義元件
+        el: '#app',
+        data: {
+            text: 'MORNING!',
+            text2: 'M~~ORNING!',
+            text3: 'M~~ORNING!',
+        },
+        components: {
+           
+        }
+    })
+
+</script>
+
+</html>
