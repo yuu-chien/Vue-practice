@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <title>第四週練習 emit</title>
+    <title>第四週練習 $emit</title>
 </head>
 <body>
 
     <div id="app">
-        <block info-txt="a" @pushemit="getData"></block>
+        <!-- @pushemit（內層事件）="getData"（外層事件） -->
+        <block info-txt="a" @pushemit="getData"></block> 
     </div>
 
 </body>
@@ -29,7 +30,7 @@
         template: '#info',
         data: function(){
             return {
-                text: 'hi'
+                text: 'OHO'
             }
         },
         methods: {
@@ -37,7 +38,7 @@
                 console.log('嗨，這裡是內層');
                 // $emit 出去，methods 發大財（誤）
                 // $emit 定義事件'pushemit' 並推送，接著到外層（第12行）指定以 app methods 中的 getData 接收
-                this.$emit('pushemit')
+                this.$emit('pushemit', this.text)
             }
         }
     })
@@ -45,8 +46,10 @@
     var app = new Vue({
         el: '#app',
         methods: {
-            getData(){
+            // papa 為自定義的參數，接收由內從傳出來的資料
+            getData(papa){
                 console.log('嗨，這裡是～外層');
+                console.log("papa",papa)
             }
         }
     })
