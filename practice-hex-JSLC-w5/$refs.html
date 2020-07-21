@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>$refs</title>
+</head>
+<body>
+<div id="app">
+    <div class="container">
+        <section class="mt-5 mb-5">
+            <h2>試著設定 ref 吧</h2>
+            <button type="button" class="btn btn-info" id="idForBtn" ref="btn">這是按鈕</button>
+            <button type="button" class="btn btn-outline-info" id="idForBtn2" ref="btn">這是第二個按鈕</button>
+            <button type="button" class="" id="idForBtn3" ref="btn3">這是第二個按鈕</button>
+        </section>
+        <hr>
+        <section class="mt-5 mb-5">
+            <h2 class="mb-3">使用 $refs 開啟 Modal</h2>
+            <!-- Button trigger modal -->
+            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">demo modal</button> -->
+            <button type="button" class="btn btn-success" @click="callModal">demo modal（箭頭函式）</button>
+            <button type="button" class="btn btn-outline-success" @click="callModal2">demo modal（一般函式）</button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" ref="openModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Hello World
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" @click="closeModal">儲存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script>
+    new Vue({
+        el: '#app',
+        methods: {
+            callModal() {
+                // 這段是 BS4 的開啟 Modal 語法
+                // $(this.$refs.openModal) 可以想成 JQ 中指定元素的方法
+                // 箭頭函式沒有自己的 this
+                setTimeout(()=>{
+                    alert("這是箭頭函式");
+                    $(this.$refs.openModal).modal('show');
+                }, 1000)
+            },
+            callModal2() {
+                const vm = this;
+                setTimeout(function() {
+                    alert("這是一般函式");
+                    $(vm.$refs.openModal).modal('show');
+                }, 1000)
+            },
+            closeModal() {
+                alert("yaaaaaaaa");
+                $(this.$refs.openModal).modal('hide');
+            },
+        },
+        mounted() {
+            // 生命週期在 mounted 這個階段才有 DOM 元素
+            let a = document.querySelector('#idForBtn');
+            console.log("#idForBtn",a);
+
+            // 一個網頁中只能有一個 id，如果用上面的方法可能會有一些狀況；如果改用抓取 class 則有可能會不準確
+            // Vue 的 ref 屬性可以直接取到 DOM 元素
+            // 每個元件下只能有一個 ref 名稱(不得重複)，在元件內是獨立的
+            console.log("this.$refs",this.$refs);
+            console.log("this.$refs.btn",this.$refs.btn);  // 只會取得第二個
+
+            this.$refs.btn3.className = 'btn btn-outline-primary';
+        },
+    });
+</script>
+</html>
