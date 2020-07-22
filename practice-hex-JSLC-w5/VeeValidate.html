@@ -39,8 +39,36 @@
         </div>
         <hr>
         <div class="mt-5 mb-5">
-            <h2></h2>
-            <validation-provider></validation-provider>
+            <h2>單個欄位的驗證設定</h2>
+            <!-- 在 v-slot 中進行 classes 的切換與 passed 的顯示訊息 -->
+            <!-- 提示訊息中的詞是根據 <input> 中的 name，像是「The 第二個信箱 field must be a valid email」 -->
+            <validation-provider rules="required|email" v-slot="{ errors, classes, passed }">
+                <label for="email2">Email</label>
+                <input type="email" name="第二個信箱" id="email2" v-model="email2" class="form-control" :class="classes">
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+                <span class="valid-feedback" v-if="passed">格式正確</span>
+            </validation-provider>
+            <Validation-Provider rules="required|min:6" v-slot="{ errors, classes, passed }">
+                <label for="name">Name</label>
+                <input type="text" name="輸入文字" v-model="name" id="name" class="form-control" :class="classes">
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+                <span class="valid-feedback" v-if="passed">格式正確</span>
+            </Validation-Provider>
+        </div>
+        <hr>
+        <div class="mt-5 mb-5">
+            <h2>表單驗證</h2>
+            <Validation-Provider rules="required|max_value:12" v-slot="{ invalid, errors, classes, passed }">
+                <!-- 第 69 行的 type="submit" 會觸發表單 submit，用 .prevent 取消原事件後再觸發 clickSubmitBtn 事件 -->
+                <form @submit.prevent="clickSubmitBtn">
+                    <label for="month">請輸入出生月份</label>
+                    <input type="number" id="month" v-model="month" name="月份" class="form-control" :class="classes">
+                    <span class="invalid-feedback">{{ errors[0] }}</span>
+                    <span class="valid-feedback" v-if="passed">正確月份</span>
+                    <!-- :disabled="invalid" 對應到第 61 行的 invalid，如果表單未驗證成功則無法送出（按鈕無法點擊） -->
+                    <button type="submit" class="btn btn-info mt-3" :disabled="invalid">按下去！</button>
+                </form>
+            </Validation-Provider>
         </div>
     </div>
 </div>
@@ -66,14 +94,28 @@
     // 將 ValidationProvider 註冊為全域元件
     Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
 
+    // 使用 CSS Classes 進行樣式的改變。這裡使用的樣式和名稱都跟 BS4 一樣
+    VeeValidate.configure({
+        classes: {
+            valid: 'is-valid',
+            invalid: 'is-invalid',
+        }
+    });
 
     new Vue({
         el: '#app',
         data: {
             isLoading: false,
             email: '',
+            email2: '',
+            name: '',
+            month: '',
         },
-        methods: {},
+        methods: {
+            clickSubmitBtn() {
+                alert(`你的生日月份是 ${this.month} 月`);
+            },
+        },
     });
 
 </script>
