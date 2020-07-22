@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>VeeValidate</title>
+</head>
+<style>
+    body {
+        font-family: 微軟正黑體;
+        background-color: rgb(240, 240, 240);
+    }
+</style>
+<body>
+
+<div id="app">
+    <div class="container">
+        <div class="mt-5 mb-5">
+            <h2>一般表單撰寫</h2>
+            <!-- 表單一定要用 form 標籤包覆 -->
+            <form action="">
+                <label for="ex-email">Email</label>
+                <input type="email" name="ex-email" id="ex-email" class="form-control mb-3" required>
+                <!-- <button> 預設 type="submit"，會直接把 input 裡的資料傳到網址。為避免被直接送出，要加上 type="button" -->
+                <button type="button" class="btn btn-secondary">一般送出</button>
+            </form>
+        </div>
+        <hr>
+        <div class="mt-5 mb-5">
+            <h2>使用 ValidationProvider 進行驗證</h2>
+            <!-- rules 為驗證規則，v-slot 為回饋訊息，這裡回饋的是一個物件 { errors } -->
+            <!-- 第 36 行的 {{ errors[0] }} -->
+            <validation-provider rules="email" v-slot="{ errors }">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" v-model="email" class="form-control">
+                <span>{{ errors[0] }}</span>
+            </validation-provider>
+        </div>
+        <hr>
+        <div class="mt-5 mb-5">
+            <h2></h2>
+            <validation-provider></validation-provider>
+        </div>
+    </div>
+</div>
+    
+</body>
+<!-- Vue -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<!-- veeValidate -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.3.0/vee-validate.full.min.js"></script>
+<!-- vue-loading-overlay -->
+<script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.2/dist/vue-loading.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.2/dist/vue-loading.css">
+<script>
+
+
+    
+    // 將 ValidationProvider 註冊為全域元件
+    Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
+
+
+    new Vue({
+        el: '#app',
+        data: {
+            isLoading: false,
+            email: '',
+        },
+        methods: {},
+    });
+
+</script>
+</html>
