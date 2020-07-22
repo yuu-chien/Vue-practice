@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>vue-loading-overlay</title>
+</head>
+<style>
+    body {
+        font-family: 微軟正黑體;
+        background-color: rgb(240, 240, 240);
+    }
+</style>
+<body>
+
+<div id="app">
+    <div class="container">
+        <div class="mt-5 mb-5">
+            <h2>點擊後出現 Loading 並在兩秒後關閉</h2>
+            <button type="button" class="btn btn-info" @click="callLoading">點擊</button>
+        </div>
+        <hr>
+        <div class="mt-5 mb-5">
+            <h2>點擊，取得資料後再關閉 Loading</h2>
+            <button type="button" class="btn btn-outline-info" @click="getData">取得資料</button>
+        </div>
+    </div>
+    <loading :active.sync="isLoading"></loading>
+</div>
+    
+</body>
+<!-- Vue -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<!-- vue-loading-overlay -->
+<script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.2/dist/vue-loading.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.2/dist/vue-loading.css">
+<script>
+
+    // 引入的 CDN 會產生名為 VueLoading 的物件
+    console.log("VueLoading",VueLoading);
+    // 將 VueLoading 註冊為全域元件
+    Vue.component('loading',VueLoading);
+
+    new Vue({
+        el: '#app',
+        data: {
+            isLoading: false,
+        },
+        methods: {
+            callLoading() {
+                this.isLoading = true;
+                setTimeout(()=>{
+                    this.isLoading = false;
+                }, 2000);
+            },
+            getData() {
+                // 取得資料後再關閉 Loading（較符合 UX）
+                this.isLoading = true;
+                axios.get('https://course-ec-api.hexschool.io/api/0c404360-cb55-4d2b-8c0a-cd42d85893cb/ec/products')
+                    .then((res)=>{
+                        console.log(res);
+                        this.isLoading = false;
+                    })
+            },
+        },
+    });
+
+</script>
+</html>
