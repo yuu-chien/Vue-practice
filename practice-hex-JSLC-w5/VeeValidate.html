@@ -87,10 +87,14 @@
 <!-- vue-loading-overlay -->
 <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.2/dist/vue-loading.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.2/dist/vue-loading.css">
-<script>
 
+<script type="module">
 
-    
+    // 匯入繁體中文檔案
+    import zh_TW from './zh-TW.js';
+    console.log(zh_TW);
+    VeeValidate.localize('tw', zh_TW);  // 設定語系 
+
     // 將 ValidationProvider 註冊為全域元件
     Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
 
