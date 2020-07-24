@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="./CSS/bg.css">
+    <title>Vue Filter</title>
+</head>
+<body>
+
+<div id="app">
+    <div class="container">
+        <div class="mt-5 mb-5">
+            <h2>Vue Filter</h2>
+            <span>{{ money（data 裡的值）</span>
+            <span> | </span>
+            <span>price（這裡填 Vue.filter 的名稱） }}</span>
+        </div>
+        <hr>
+        <div class="mt-5mb-5">
+            <h3>將數字改為千分位表示並加上 $ 記號</h3>
+            <p>金額：{{ money | price }}</p>
+        </div>
+        <hr>
+        <div class="mt-5mb-5">
+            <h3></h3>
+            <p>{{ timestamp }} <span>seconds since Jan 01 1970. (UTC)</span></p>
+            <p>{{ timestamp | unix }} </P>
+        </div>
+    </div>
+</div>
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script>
+
+    // filter 像是過濾器，在資料呈現之前可以預做一些處理（改變值的呈現方式）
+    // Vue.filter('名稱', function(傳入的數值){})
+    Vue.filter('price', function(num){
+        // 正則表達式
+        let parts = num.toString().split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return '$' + parts.join('.');
+    })
+
+    Vue.filter('unix', function(time){
+        // new Date() 需要為函數提供毫秒值，首先將給定的 Unix 時間戳轉換為毫秒
+        // https://coderrocketfuel.com/article/convert-a-unix-timestamp-to-a-date-in-vanilla-javascript
+        let theDay = new Date(time*1000);
+        return theDay.toLocaleString()
+        
+    })
+
+    new Vue({
+        el: '#app',
+        data: {
+            money: 123456789,
+            timestamp: 1595561042,
+        }
+    });
+
+
+</script>
+</html>
