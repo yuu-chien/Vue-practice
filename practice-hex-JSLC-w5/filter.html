@@ -24,7 +24,7 @@
         </div>
         <hr>
         <div class="mt-5mb-5">
-            <h3></h3>
+            <h3>將時間戳記（Unix Timestamp）改為易讀的方式</h3>
             <p>{{ timestamp }} <span>seconds since Jan 01 1970. (UTC)</span></p>
             <p>{{ timestamp | unix }} </P>
         </div>
@@ -38,7 +38,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script>
 
-    // filter 像是過濾器，在資料呈現之前可以預做一些處理（改變值的呈現方式）
+    // filter 像是過濾器，在資料呈現之前可以預做一些處理（適合單一值的轉換或呈現方式）
     // Vue.filter('名稱', function(傳入的數值){})
     Vue.filter('price', function(num){
         // 正則表達式
